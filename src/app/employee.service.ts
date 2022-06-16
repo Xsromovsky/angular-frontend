@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { observableToBeFn } from 'rxjs/internal/testing/TestScheduler';
 import { Employee } from './employee';
 
 
@@ -18,6 +19,14 @@ export class EmployeeService {
 
   createEmployee(employee: Employee): Observable<Object>{
     return this.httpClient.post(`${this.baseUrl}`, employee);
+  }
+
+  getEmployeeById(id: number): Observable<Employee>{
+    return this.httpClient.get<Employee>(`${this.baseUrl}/${id}`);
+  }
+
+  updateEmployee(id: number, employee: Employee): Observable<Object>{
+    return this.httpClient.put(`${this.baseUrl}/${id}`, employee);
   }
 
 }
